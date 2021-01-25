@@ -1,6 +1,6 @@
 // Styling
 import { GlobalStyle, ThemeButton } from "./styles";
-
+import { useState } from "react";
 // Components
 import CookieList from "./components/ProductList";
 import Home from "./components/Home";
@@ -22,12 +22,18 @@ const theme = {
 };
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useState("light");
+  const toggleTheme = () => {
+    if (currentTheme === "light") {
+      setCurrentTheme("dark");
+    } else {
+      setCurrentTheme("light");
+    }
+  };
   return (
-    <ThemeProvider theme={theme.light}>
+    <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
-      <ThemeButton onClick={() => alert("I do nothing..")}>
-        Dark Theme
-      </ThemeButton>
+      <ThemeButton onClick={toggleTheme}>{currentTheme} Theme</ThemeButton>
       <Home />
       <CookieList />
     </ThemeProvider>
